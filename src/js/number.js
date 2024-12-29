@@ -19,6 +19,30 @@ function generateNumber(length) {
     return Math.floor(Math.random() * (10 ** length));
 }
 
+function displayNumberSequentially(number, delay) {
+    let digits = number.toString().split('');
+    let i = 0;
+
+    function showNextDigit() {
+        if (i < digits.length) {
+            display.textContent = digits[i];
+            i++;
+            setTimeout(showNextDigit, delay);
+        } else {
+            setTimeout(() => {
+                display.textContent = '?';
+                input.value = '';
+                input.classList.remove('hidden');
+                input.focus();
+                statusText.textContent = 'what was the number?';
+                startSelectionTimer();
+            }, currentMode.highlightTimer);
+        }
+    }
+
+    showNextDigit();
+}
+
 function startGame() {
     if (gameActive) return;
 
@@ -31,16 +55,7 @@ function startGame() {
     setTimeout(() => {
         const numberLength = Math.floor(currentMode.speedOfSelection / 100) + 1;
         currentNumber = generateNumber(numberLength).toString();
-        display.textContent = currentNumber;
-
-        setTimeout(() => {
-            display.textContent = '?';
-            input.value = '';
-            input.classList.remove('hidden');
-            input.focus();
-            statusText.textContent = 'what was the number?';
-            startSelectionTimer();
-        }, currentMode.highlightTimer);
+        displayNumberSequentially(currentNumber, currentMode.highlightTimer / 2);
     }, 1000);
 }
 
