@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>xurst's memory games</title>
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/sidebar.css" rel="stylesheet">
+</head>
+<body>
+<div class="sidebar">
+    <h1 class="sidebar-title">memory games</h1>
+    <div class="memory-game-list">
+        <div class="memory-game active">sequence memory</div>
+        <div class="memory-game" onclick="window.location.href='number.html'">number memory</div>
+        <div class="memory-game disabled">more coming soon...</div>
+    </div>
+</div>
+<div class="main-content">
+    <div id="sequence-game" class="game-container">
+        <div class="container">
+            <h1 class="title">sequence memory</h1>
+            <div class="mode-selector">
+                <button id="modeButton">mode: normal</button>
+                <div class="mode-dropdown hidden">
+                    <div class="mode-option" data-mode="easy">easy</div>
+                    <div class="mode-option" data-mode="normal">normal</div>
+                    <div class="mode-option" data-mode="hard">hard</div>
+                    <div class="mode-option" data-mode="impossible">impossible</div>
+                    <div class="mode-option" data-mode="xurst">xurst</div>
+                    <div class="mode-option" data-mode="gojo">gojo</div>
+                </div>
+            </div>
+            <button id="startButton" class="start-button">start game</button>
+            <div class="game-grid">
+                <div class="game-box" data-index="0"></div>
+                <div class="game-box" data-index="1"></div>
+                <div class="game-box" data-index="2"></div>
+                <div class="game-box" data-index="3"></div>
+                <div class="game-box" data-index="4"></div>
+                <div class="game-box" data-index="5"></div>
+                <div class="game-box" data-index="6"></div>
+                <div class="game-box" data-index="7"></div>
+                <div class="game-box" data-index="8"></div>
+            </div>
+            <div class="status-text">click start to begin</div>
+        </div>
+    </div>
+</div>
+<script type="module" src="src/js/main.js"></script>
+</body>
+</html>

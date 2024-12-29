@@ -1,0 +1,159 @@
+/* General reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    background-color: #000;
+    font-family: "IBM Plex Mono", monospace;
+    color: white;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    max-width: 500px;
+    width: 100%;
+}
+
+.game-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.game-box {
+    width: 80px;
+    height: 80px;
+    border: 2px solid #3c3c3c;
+    border-radius: 13px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.game-box.highlighted {
+    background-color: white;
+}
+
+.status-text {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 1.2em;
+}
+
+.mode-selector {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.mode-dropdown {
+    position: absolute;
+    top: 110%;
+    left: 0;
+    background-color: #000;
+    border: 2px solid #3c3c3c;
+    border-radius: 13px;
+    width: 100%;
+    z-index: 1000;
+}
+
+.mode-dropdown.hidden {
+    display: none;
+}
+
+.mode-option:first-child {
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+}
+
+.mode-option:last-child {
+    border-bottom-left-radius: 7px;
+    border-bottom-right-radius: 7px;
+}
+
+#modeButton {
+    background-color: #000;
+    color: white;
+    border: 2px solid #3c3c3c;
+    padding: 8px 16px;
+    border-radius: 13px;
+    cursor: pointer;
+    font-family: "IBM Plex Mono", monospace;
+    transition: border-color 0.3s;
+}
+
+#modeButton:hover {
+    border-color: white;
+}
+
+.mode-option {
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.mode-option:hover {
+    background-color: #3c3c3c;
+}
+
+.start-button {
+    background-color: #000;
+    color: white;
+    border: 2px solid #3c3c3c;
+    padding: 8px 16px;
+    border-radius: 13px;
+    cursor: pointer;
+    font-family: "IBM Plex Mono", monospace;
+    transition: border-color 0.3s;
+    margin-bottom: 20px;
+}
+
+.start-button:hover {
+    border-color: white;
+}
+
+.start-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.title {
+    width: 100%;
+    text-align: center;
+    font-size: 2em;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #fff;
+    animation: fadeIn 1s ease-in-out forwards;
+}
+
+.hidden {
+    display: none;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.disabled:hover {
+    transform: none;
+    background-color: rgba(255, 255, 255, 0.05);
+}

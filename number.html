@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>xurst's memory games</title>
+  <link href="/css/style.css" rel="stylesheet">
+  <link href="/css/sidebar.css" rel="stylesheet">
+  <link href="/css/number.css" rel="stylesheet">
+</head>
+<body>
+<div class="sidebar">
+  <h1 class="sidebar-title">memory games</h1>
+  <div class="memory-game-list">
+    <div class="memory-game" onclick="window.location.href='index.html'">sequence memory</div>
+    <div class="memory-game active">number memory</div>
+    <div class="memory-game disabled">more coming soon...</div>
+  </div>
+</div>
+<div class="main-content">
+  <div id="number-game" class="game-container">
+    <div class="container">
+      <h1 class="title">number memory</h1>
+      <div class="mode-selector">
+        <button id="modeButton">mode: normal</button>
+        <div class="mode-dropdown hidden">
+          <div class="mode-option" data-mode="easy">easy</div>
+          <div class="mode-option" data-mode="normal">normal</div>
+          <div class="mode-option" data-mode="hard">hard</div>
+          <div class="mode-option" data-mode="impossible">impossible</div>
+          <div class="mode-option" data-mode="xurst">xurst</div>
+          <div class="mode-option" data-mode="gojo">gojo</div>
+        </div>
+      </div>
+      <button id="startButton" class="start-button">start game</button>
+      <div class="number-display">0</div>
+      <input type="number" id="numberInput" class="number-input hidden" placeholder="Enter the number">
+      <div class="status-text">click start to begin</div>
+    </div>
+  </div>
+</div>
+<script type="module" src="/src/js/number.js"></script>
+</body>
+</html>
