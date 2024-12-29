@@ -25,15 +25,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const handleToggle = debounce(() => {
         sidebar.classList.toggle('sidebar-collapsed');
         mainContent.classList.toggle('full-width');
-        localStorage.setItem('sidebarCollapsed', sidebar.classList.contains('sidebar-collapsed'));
     }, 100);
 
     toggleButton.addEventListener('click', handleToggle);
-
-    if (localStorage.getItem('sidebarCollapsed') === 'true') {
-        sidebar.classList.add('sidebar-collapsed');
-        mainContent.classList.add('full-width');
-    }
 });
 
 // Game variables
@@ -58,20 +52,16 @@ function updateSettingsUI() {
     document.getElementById('speedOfSelection').value = currentMode.speedOfSelection;
     document.getElementById('turnDelay').value = currentMode.turnDelay;
     document.getElementById('repetitionEnabled').checked = currentMode.repetitionEnabled;
-    document.getElementById('repetitionDelay').value = currentMode.repetitionDelay;
 
     // Update displayed values with 'ms' suffix
     document.getElementById('highlightValue').textContent = `${currentMode.highlightTimer} ms`;
     document.getElementById('timerValue').textContent = `${currentMode.timerSelection} ms`;
     document.getElementById('speedValue').textContent = `${currentMode.speedOfSelection} ms`;
     document.getElementById('delayValue').textContent = `${currentMode.turnDelay} ms`;
-    document.getElementById('repetitionDelayValue').textContent = currentMode.repetitionDelay;
 }
 
 function loadMode(modeName) {
-    currentMode = gameModes.sequence[modeName];
-    if (!currentMode.repetitionEnabled) currentMode.repetitionEnabled = false;
-    if (!currentMode.repetitionDelay) currentMode.repetitionDelay = 0;
+    currentMode = JSON.parse(JSON.stringify(gameModes.sequence[modeName]));
     modeButton.textContent = `mode: ${modeName}`;
     updateSettingsUI();
 }
@@ -104,26 +94,38 @@ function startSelectionTimer() {
 }
 
 function getRandomBox() {
-    if (!currentMode.repetitionEnabled || usedBoxesThisTurn.size >= 9) {
+    if (currentMode.repetitionEnabled) {
         return Math.floor(Math.random() * 9);
-    }
-
-    let availableBoxes = [];
-    for (let i = 0; i < 9; i++) {
-        if (!usedBoxesThisTurn.has(i)) {
-            availableBoxes.push(i);
+    } else {
+        if (usedBoxesThisTurn.size >= 9) {
+            usedBoxesThisTurn.clear();
         }
+        let availableBoxes = [];
+        for (let i = 0; i < 9; i++) {
+            if (!usedBoxesThisTurn.has(i)) {
+                availableBoxes.push(i);
+            }
+        }
+        const newBox = availableBoxes[Math.floor(Math.random() * availableBoxes.length)];
+        usedBoxesThisTurn.add(newBox);
+        return newBox;
     }
-
-    return availableBoxes[Math.floor(Math.random() * availableBoxes.length)];
 }
 
 function computerTurn() {
     gameActive = false;
     statusText.textContent = "computer's turn";
-    usedBoxesThisTurn.clear(); // Clear used boxes at start of turn
+    if (!currentMode.repetitionEnabled) {
+        if (usedBoxesThisTurn.size >= 9) {
+            usedBoxesThisTurn.clear();
+        }
+    } else {
+        usedBoxesThisTurn.clear();
+    }
     const newBox = getRandomBox();
-    usedBoxesThisTurn.add(newBox);
+    if (!currentMode.repetitionEnabled) {
+        usedBoxesThisTurn.add(newBox);
+    }
     sequence.push(newBox);
 
     let i = 0;
@@ -184,28 +186,40 @@ document.querySelector('.settings-close').addEventListener('click', () => {
 
 document.querySelectorAll('.setting-group input').forEach(input => {
     input.addEventListener('input', (e) => {
-        const settingName = e.target.id.replace('Timer', '');
-        const newValue = e.target.value;
+        const settingId = e.target.id;
+        const newValue = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
 
-        // Find and update the label text
-        const label = e.target.previousElementSibling;
-        if (label && label.tagName === 'LABEL') {
-            const labelPrefix = label.textContent.split(':')[0];
-            label.innerHTML = `${labelPrefix}: <span class="setting-value" id="${e.target.id}Value">${newValue} ms</span>`;
+        // Handle the value display differently for checkbox vs range inputs
+        if (e.target.type === 'checkbox') {
+            currentMode[settingId] = newValue;
+        } else {
+            const label = e.target.previousElementSibling;
+            if (label && label.tagName === 'LABEL') {
+                const labelSpan = label.querySelector('.setting-value');
+                if (labelSpan) {
+                    labelSpan.textContent = `${newValue} ms`;
+                }
+            }
+            currentMode[settingId] = parseInt(newValue);
         }
-
-        currentMode[e.target.id] = parseInt(newValue);
     });
 });
 
 document.querySelector('.settings-save').addEventListener('click', () => {
+    currentMode.repetitionEnabled = document.getElementById('repetitionEnabled').checked;
     document.querySelector('.settings-panel').classList.add('hidden');
 });
 
 document.querySelector('.settings-reset').addEventListener('click', () => {
     const currentModeName = modeButton.textContent.split(': ')[1];
-    localStorage.removeItem(`sequenceSettings_${currentModeName}`);
-    loadMode(currentModeName);
+    const defaultMode = gameModes.sequence[currentModeName];
+    // Copy default values
+    currentMode.highlightTimer = defaultMode.highlightTimer;
+    currentMode.timerSelection = defaultMode.timerSelection;
+    currentMode.speedOfSelection = defaultMode.speedOfSelection;
+    currentMode.turnDelay = defaultMode.turnDelay;
+    currentMode.repetitionEnabled = defaultMode.repetitionEnabled;
+    updateSettingsUI();
 });
 
 startButton.addEventListener('click', startGame);
@@ -217,7 +231,6 @@ modeButton.addEventListener('click', () => {
 document.querySelectorAll('.mode-option').forEach(option => {
     option.addEventListener('click', () => {
         const modeName = option.dataset.mode;
-        localStorage.setItem('sequenceGameMode', modeName);
         loadMode(modeName);
 
         sequence = [];
@@ -237,4 +250,4 @@ document.addEventListener('click', (e) => {
 });
 
 // Initialize game
-loadMode(localStorage.getItem('sequenceGameMode') || 'normal');
+loadMode('normal');

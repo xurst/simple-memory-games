@@ -6,6 +6,7 @@ const gameModes = {
             timerSelection: 20000,
             speedOfSelection: 2000,
             turnDelay: 1200,
+            repetitionEnabled: true,
         },
         normal: {
             name: 'normal',
@@ -13,6 +14,7 @@ const gameModes = {
             timerSelection: 10000,
             speedOfSelection: 1000,
             turnDelay: 600,
+            repetitionEnabled: true,
         },
         hard: {
             name: 'hard',
@@ -20,6 +22,7 @@ const gameModes = {
             timerSelection: 5000,
             speedOfSelection: 500,
             turnDelay: 350,
+            repetitionEnabled: true,
         },
         impossible: {
             name: 'impossible',
@@ -27,6 +30,7 @@ const gameModes = {
             timerSelection: 2500,
             speedOfSelection: 250,
             turnDelay: 200,
+            repetitionEnabled: true,
         },
         xurst: {
             name: 'xurst',
@@ -34,6 +38,7 @@ const gameModes = {
             timerSelection: 750,
             speedOfSelection: 100,
             turnDelay: 100,
+            repetitionEnabled: true,
         },
         gojo: {
             name: 'gojo',
@@ -41,6 +46,7 @@ const gameModes = {
             timerSelection: 250,
             speedOfSelection: 50,
             turnDelay: 5,
+            repetitionEnabled: false,
         }
     },
     number: {
@@ -90,6 +96,7 @@ export default gameModes;
 // timerSelection = how long the user turn has before the game will automatically end (milliseconds)
 // speedOfSelection = how long before the bot selects the next box (milliseconds)
 // turnDelay = how long the bot will wait before giving the user the turn (milliseconds)
+// repetitionEnabled = whether box repetition is enabled or not (boolean)
 
 // args for number:
 // highlightTimer = how long each digit is shown (milliseconds)
