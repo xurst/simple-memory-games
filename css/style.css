@@ -142,6 +142,96 @@ body {
     display: none;
 }
 
+/* Add to style.css */
+.settings-panel {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(20, 20, 20, 0.95);
+    border: 2px solid #3c3c3c;
+    border-radius: 13px;
+    padding: 20px;
+    width: 90%;
+    max-width: 400px;
+    z-index: 2000;
+}
+
+.settings-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.settings-close {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 0 8px;
+}
+
+.setting-group {
+    margin-bottom: 20px;
+}
+
+.setting-group label {
+    display: block;
+    margin-bottom: 8px;
+}
+
+.setting-group input[type="range"] {
+    width: 100%;
+    margin-top: 5px;
+}
+
+.settings-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.settings-buttons button {
+    flex: 1;
+    padding: 10px;
+    border: 2px solid #3c3c3c;
+    border-radius: 8px;
+    background: none;
+    color: white;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.settings-buttons button:hover {
+    border-color: white;
+}
+
+.settings-toggle {
+    background: none;
+    border: 2px solid #3c3c3c;
+    border-radius: 13px;
+    color: white;
+    padding: 8px 12px;
+    cursor: pointer;
+    margin-left: 10px;
+    transition: border-color 0.3s;
+}
+
+.settings-toggle:hover {
+    border-color: white;
+}
+
+.mode-selector {
+    display: flex;
+    align-items: center;
+}
+
+.hidden {
+    display: none;
+}
+
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -154,14 +244,35 @@ body {
 }
 
 @media (max-width: 768px) {
+    .container {
+        width: 100%;
+        padding: 20px;
+        margin-top: 70px; /* Increased space for toggle button */
+    }
+
+    .game-grid {
+        width: min(95vw, 95vh); /* Use the smaller of viewport width or height */
+        height: min(95vw, 95vh);
+        max-width: 500px; /* Maximum size limit */
+        max-height: 500px;
+        margin: 20px auto;
+        gap: 15px; /* Increased gap between boxes */
+    }
+
+    .game-box {
+        width: 100%;
+        height: 100%;
+        border-width: 3px; /* Slightly thicker borders */
+    }
+
     .title {
-        font-size: 1.5em;
-        margin-bottom: 15px;
+        font-size: 1.8em;
+        margin-bottom: 25px;
     }
 
     .mode-selector {
-        width: 100%;
-        max-width: 300px;
+        width: min(95vw, 400px);
+        margin-bottom: 25px;
     }
 
     #modeButton {
@@ -185,8 +296,8 @@ body {
     }
 
     .status-text {
-        font-size: 1em;
-        padding: 0 10px;
+        font-size: 1.2em;
+        margin-top: 25px;
     }
 
     .sidebar {

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
     <title>xurst's memory games</title>
     <link href="css/style.css" rel="stylesheet">
     <link href="css/sidebar.css" rel="stylesheet">
@@ -23,6 +23,7 @@
             <h1 class="title">sequence memory</h1>
             <div class="mode-selector">
                 <button id="modeButton">mode: normal</button>
+                <button id="settingsButton" class="settings-toggle">⚙️</button>
                 <div class="mode-dropdown hidden">
                     <div class="mode-option" data-mode="easy">easy</div>
                     <div class="mode-option" data-mode="normal">normal</div>
@@ -30,6 +31,41 @@
                     <div class="mode-option" data-mode="impossible">impossible</div>
                     <div class="mode-option" data-mode="xurst">xurst</div>
                     <div class="mode-option" data-mode="gojo">gojo</div>
+                </div>
+            </div>
+            <div class="settings-panel hidden">
+                <div class="settings-header">
+                    <h2>custom settings</h2>
+                    <button class="settings-close">×</button>
+                </div>
+                <div class="settings-content">
+                    <div class="setting-group">
+                        <label>highlight duration (ms): <span class="setting-value" id="highlightValue">1000</span></label>
+                        <input type="range" id="highlightTimer" min="25" max="2000" step="25">
+                    </div>
+                    <div class="setting-group">
+                        <label>time to answer (ms): <span class="setting-value" id="timerValue">10000</span></label>
+                        <input type="range" id="timerSelection" min="250" max="20000" step="250">
+                    </div>
+                    <div class="setting-group">
+                        <label>sequence speed (ms): <span class="setting-value" id="speedValue">1000</span></label>
+                        <input type="range" id="speedOfSelection" min="50" max="2000" step="50">
+                    </div>
+                    <div class="setting-group">
+                        <label>turn delay (ms): <span class="setting-value" id="delayValue">600</span></label>
+                        <input type="range" id="turnDelay" min="5" max="1200" step="5">
+                    </div>
+                    <div class="setting-group">
+                        <label>no box repetition: <input type="checkbox" id="repetitionEnabled"></label>
+                    </div>
+                    <div class="setting-group">
+                        <label>repetition delay (turns): <span class="setting-value" id="repetitionDelayValue">0</span></label>
+                        <input type="range" id="repetitionDelay" min="0" max="10" step="1">
+                    </div>
+                    <div class="settings-buttons">
+                        <button class="settings-save">save custom settings</button>
+                        <button class="settings-reset">reset to default</button>
+                    </div>
                 </div>
             </div>
             <button id="startButton" class="start-button">start game</button>
