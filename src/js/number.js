@@ -2,7 +2,7 @@ import gameModes from './modes.js';
 
 let currentNumber = '';
 let gameActive = false;
-let currentMode = gameModes.normal;
+let currentMode = gameModes.number.normal;
 
 const display = document.querySelector('.number-display');
 const input = document.getElementById('numberInput');
@@ -12,11 +12,13 @@ const modeDropdown = document.querySelector('.mode-dropdown');
 const startButton = document.getElementById('startButton');
 
 const savedMode = localStorage.getItem('numberGameMode') || 'normal';
-currentMode = gameModes[savedMode];
+currentMode = gameModes.number[savedMode];
 modeButton.textContent = `mode: ${savedMode}`;
 
-function generateNumber(length) {
-    return Math.floor(Math.random() * (10 ** length));
+function generateNumber() {
+    return Math.floor(Math.random() * (10 ** currentMode.numberLength))
+        .toString()
+        .padStart(currentMode.numberLength, '0');
 }
 
 function displayNumberSequentially(number, delay) {
@@ -96,7 +98,7 @@ document.querySelectorAll('.mode-option').forEach(option => {
     option.addEventListener('click', () => {
         const modeName = option.dataset.mode;
         localStorage.setItem('numberGameMode', modeName);
-        currentMode = gameModes[modeName];
+        currentMode = gameModes.number[modeName];
         modeButton.textContent = `mode: ${modeName}`;
         modeDropdown.classList.add('hidden');
     });

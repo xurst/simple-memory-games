@@ -3,7 +3,7 @@ import gameModes from './modes.js';
 let sequence = [];
 let playerSequence = [];
 let gameActive = false;
-let currentMode = gameModes.normal;
+let currentMode = gameModes.sequence.normal;
 let selectionTimer = null;
 
 const boxes = document.querySelectorAll('.game-box');
@@ -13,7 +13,7 @@ const modeDropdown = document.querySelector('.mode-dropdown');
 const startButton = document.getElementById('startButton');
 
 const savedMode = localStorage.getItem('sequenceGameMode') || 'normal';
-currentMode = gameModes[savedMode];
+currentMode = gameModes.sequence[savedMode];
 modeButton.textContent = `mode: ${savedMode}`;
 
 function startGame() {
@@ -104,7 +104,7 @@ document.querySelectorAll('.mode-option').forEach(option => {
     option.addEventListener('click', () => {
         const modeName = option.dataset.mode;
         localStorage.setItem('sequenceGameMode', modeName);
-        currentMode = gameModes[modeName];
+        currentMode = gameModes.sequence[modeName];
         modeButton.textContent = `mode: ${modeName}`;
         modeDropdown.classList.add('hidden');
 
