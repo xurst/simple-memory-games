@@ -7,6 +7,10 @@ const gameModes = {
             speedOfSelection: 2000,
             turnDelay: 1200,
             repetitionEnabled: true,
+            aiDifficulty: 2,
+            numberOfBoxes: 2,
+            boxesGrid: 1,
+            boxesSize: 120
         },
         normal: {
             name: 'normal',
@@ -15,6 +19,10 @@ const gameModes = {
             speedOfSelection: 1000,
             turnDelay: 600,
             repetitionEnabled: true,
+            aiDifficulty: 4,
+            numberOfBoxes: 4,
+            boxesGrid: 2,
+            boxesSize: 100
         },
         hard: {
             name: 'hard',
@@ -23,6 +31,10 @@ const gameModes = {
             speedOfSelection: 500,
             turnDelay: 350,
             repetitionEnabled: true,
+            aiDifficulty: 6,
+            numberOfBoxes: 6,
+            boxesGrid: 4,
+            boxesSize: 90
         },
         impossible: {
             name: 'impossible',
@@ -31,6 +43,10 @@ const gameModes = {
             speedOfSelection: 250,
             turnDelay: 200,
             repetitionEnabled: true,
+            aiDifficulty: 8,
+            numberOfBoxes: 8,
+            boxesGrid: 6,
+            boxesSize: 80
         },
         xurst: {
             name: 'xurst',
@@ -38,7 +54,11 @@ const gameModes = {
             timerSelection: 750,
             speedOfSelection: 100,
             turnDelay: 100,
-            repetitionEnabled: true,
+            repetitionEnabled: false,
+            aiDifficulty: 12,
+            numberOfBoxes: 10,
+            boxesGrid: 8,
+            boxesSize: 70
         },
         gojo: {
             name: 'gojo',
@@ -47,46 +67,12 @@ const gameModes = {
             speedOfSelection: 50,
             turnDelay: 5,
             repetitionEnabled: false,
+            aiDifficulty: 50,
+            numberOfBoxes: 50,
+            boxesGrid: 10,
+            boxesSize: 20
         }
     },
-    number: {
-        easy: {
-            name: 'easy',
-            highlightTimer: 1000,    // How long each digit is shown
-            timerSelection: 20000,   // How long to input answer
-            numberLength: 3,         // Number of digits
-        },
-        normal: {
-            name: 'normal',
-            highlightTimer: 750,
-            timerSelection: 10000,
-            numberLength: 5,
-        },
-        hard: {
-            name: 'hard',
-            highlightTimer: 500,
-            timerSelection: 5000,
-            numberLength: 7,
-        },
-        impossible: {
-            name: 'impossible',
-            highlightTimer: 250,
-            timerSelection: 2500,
-            numberLength: 9,
-        },
-        xurst: {
-            name: 'xurst',
-            highlightTimer: 100,
-            timerSelection: 1000,
-            numberLength: 12,
-        },
-        gojo: {
-            name: 'gojo',
-            highlightTimer: 50,
-            timerSelection: 500,
-            numberLength: 15,
-        }
-    }
 };
 
 export default gameModes;
@@ -97,8 +83,7 @@ export default gameModes;
 // speedOfSelection = how long before the bot selects the next box (milliseconds)
 // turnDelay = how long the bot will wait before giving the user the turn (milliseconds)
 // repetitionEnabled = whether box repetition is enabled or not (boolean)
-
-// args for number:
-// highlightTimer = how long each digit is shown (milliseconds)
-// timerSelection = how long to input answer (milliseconds)
-// numberLength = number of digits to remember
+// aiDifficulty = whether how predictable the AI patterns will be
+// numberOfBoxes = how many number of boxes there are
+// boxesGrid = what grid the boxes have
+// boxesSize = how big or small are the boxes

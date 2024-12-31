@@ -5,25 +5,49 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="mobile-web-app-capable" content="yes">
     <title>xurst's memory games</title>
-    <link href="css/style.css" rel="stylesheet">
+    <link href="css/body.css" rel="stylesheet">
     <link href="css/sidebar.css" rel="stylesheet">
+    <link href="css/custom_settings.css" rel="stylesheet">
+    <link href="css/games/sequence.css" rel="stylesheet">
+    <link href="css/dropdown.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
 <div class="sidebar">
     <h1 class="sidebar-title">memory games</h1>
     <div class="memory-game-list">
         <div class="memory-game active">sequence memory</div>
-        <div class="memory-game" onclick="window.location.href='number.html'">number memory</div>
+        <div class="memory-game">more games</div>
         <div class="memory-game disabled">more coming soon...</div>
     </div>
+
+    <div class="sidebar-divider"></div>
+
+    <h1 class="sidebar-title">stuff</h1>
+    <div class="memory-game-list">
+        <div class="memory-game">settings (WIP)</div>
+        <div class="memory-game">game logs</div>
+    </div>
+
+    <div class="sidebar-divider"></div>
+
+    <h1 class="sidebar-title">important</h1>
+    <div class="memory-game-list">
+        <div class="memory-game">sign in</div>
+        <div class="memory-game">logout</div>
+    </div>
+
 </div>
+<button class="toggle-button right-toggle-button">☰</button>
 <div class="main-content">
     <div id="sequence-game" class="game-container">
         <div class="container">
             <h1 class="title">sequence memory</h1>
             <div class="mode-selector">
                 <button id="modeButton">mode: normal</button>
-                <button id="settingsButton" class="settings-toggle">⚙️</button>
+                <button id="settingsButton" class="settings-toggle">
+                    <i class="fa-solid fa-gear"></i>
+                </button>
                 <div class="mode-dropdown hidden">
                     <div class="mode-option" data-mode="easy">easy</div>
                     <div class="mode-option" data-mode="normal">normal</div>
@@ -39,6 +63,7 @@
                     <button class="settings-close">×</button>
                 </div>
                 <div class="settings-content">
+                    <h3 class="settings-section-title">mode settings</h3>
                     <div class="setting-group">
                         <label>highlight duration (ms): <span class="setting-value" id="highlightValue">1000</span></label>
                         <input type="range" id="highlightTimer" min="25" max="2000" step="25">
@@ -55,8 +80,32 @@
                         <label>turn delay (ms): <span class="setting-value" id="delayValue">600</span></label>
                         <input type="range" id="turnDelay" min="5" max="1200" step="5">
                     </div>
+
+                    <div class="settings-divider"></div>
+
+                    <h3 class="settings-section-title">user settings</h3>
                     <div class="setting-group">
-                        <label>box repetition: <input type="checkbox" id="repetitionEnabled"></label>
+                        <label>number of boxes: <span class="setting-value" id="numberOfBoxesValue">4</span></label>
+                        <input type="range" id="numberOfBoxes" min="2" max="50" step="1">
+                    </div>
+                    <div class="setting-group">
+                        <label>
+                            box repetition:
+                            <input type="checkbox" id="repetitionEnabled">
+                            <span class="checkbox-custom"></span>
+                        </label>
+                    </div>
+                    <div class="setting-group">
+                        <label>AI difficulty: <span class="setting-value" id="aiDifficultyValue">4</span></label>
+                        <input type="range" id="aiDifficulty" min="2" max="50" step="2">
+                    </div>
+                    <div class="setting-group">
+                        <label>boxes grid: <span class="setting-value" id="boxesGridValue">4</span></label>
+                        <input type="range" id="boxesGrid" min="2" max="10" step="1">
+                    </div>
+                    <div class="setting-group">
+                        <label>boxes size (px): <span class="setting-value" id="boxesSizeValue">80</span></label>
+                        <input type="range" id="boxesSize" min="40" max="120" step="5">
                     </div>
                     <div class="settings-buttons">
                         <button class="settings-save">save custom settings</button>
@@ -70,11 +119,6 @@
                 <div class="game-box" data-index="1"></div>
                 <div class="game-box" data-index="2"></div>
                 <div class="game-box" data-index="3"></div>
-                <div class="game-box" data-index="4"></div>
-                <div class="game-box" data-index="5"></div>
-                <div class="game-box" data-index="6"></div>
-                <div class="game-box" data-index="7"></div>
-                <div class="game-box" data-index="8"></div>
             </div>
             <div class="status-text">click start to begin</div>
         </div>

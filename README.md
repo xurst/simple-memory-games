@@ -1,4 +1,4 @@
-some simple memory games u can play :D
+some simple memory games u can play :D (they aren't simple)
 
 https://xurst.github.io/simple-memory-games/
 

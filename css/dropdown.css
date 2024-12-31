@@ -1,0 +1,115 @@
+.mode-selector {
+    position: relative;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+}
+
+#modeButton {
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    border: 2px solid rgba(60, 60, 60, 0.5);
+    padding: 8px 16px;
+    border-radius: 13px;
+    cursor: pointer;
+    font-family: "IBM Plex Mono", monospace;
+    transition: border-color 0.3s, background-color 0.3s;
+    backdrop-filter: blur(8px);
+}
+
+#modeButton:hover {
+    border-color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+.mode-dropdown {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 2px solid rgba(60, 60, 60, 0.5);
+    border-radius: 13px;
+    width: 100%;
+    z-index: 1000;
+    overflow: hidden;
+    opacity: 0;
+    transform-origin: top;
+    transform: translateY(-10px) scaleY(0.7);
+    transition:
+            transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+            opacity 0.3s ease,
+            background-color 0.3s ease;
+    box-shadow:
+            0 4px 20px rgba(0, 0, 0, 0.2),
+            0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+.mode-dropdown:not(.hidden) {
+    opacity: 1;
+    transform: translateY(0) scaleY(1);
+    background-color: rgba(0, 0, 0, 0.8);
+    border: 2px solid rgba(60, 60, 60, 0.5);
+}
+
+.mode-option {
+    padding: 0.75rem 1rem;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    color: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(16px);
+    margin: 0 -7px;
+    width: calc(100% + 14px);
+}
+
+.mode-option:hover {
+    background: rgba(255, 255, 255, 0.15);
+    padding-left: 1.5rem;
+    color: white;
+}
+
+.mode-option::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 3px;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.9);
+    transform: scaleY(0);
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.mode-option:hover::before {
+    transform: scaleY(1);
+}
+
+.mode-option:first-child {
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+}
+
+.mode-option:last-child {
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+}
+
+/* Added divider between options */
+.mode-option:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    height: 1px;
+    background: linear-gradient(
+            to right,
+            transparent,
+            rgba(255, 255, 255, 0.15),
+            transparent
+    );
+}
