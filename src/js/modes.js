@@ -33,7 +33,7 @@ const gameModes = {
             repetitionEnabled: true,
             aiDifficulty: 6,
             numberOfBoxes: 6,
-            boxesGrid: 4,
+            boxesGrid: 3,
             boxesSize: 90
         },
         impossible: {
@@ -45,7 +45,7 @@ const gameModes = {
             repetitionEnabled: true,
             aiDifficulty: 8,
             numberOfBoxes: 8,
-            boxesGrid: 6,
+            boxesGrid: 2,
             boxesSize: 80
         },
         xurst: {
@@ -56,8 +56,8 @@ const gameModes = {
             turnDelay: 100,
             repetitionEnabled: false,
             aiDifficulty: 12,
-            numberOfBoxes: 10,
-            boxesGrid: 8,
+            numberOfBoxes: 9,
+            boxesGrid: 3,
             boxesSize: 70
         },
         gojo: {
