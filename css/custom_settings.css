@@ -3,16 +3,14 @@
     position: fixed;
     top: 50%;
     left: 50%;
-    max-height: 80vh;
-    overflow-y: auto;
     transform: translate(-50%, -50%);
     background: rgba(15, 15, 15, 0.85);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 13px;
-    padding: 16px;
-    width: 300px;
+    padding: 12px;
+    width: 280px;
     z-index: 2000;
     box-shadow:
             0 4px 20px rgba(0, 0, 0, 0.2),
@@ -24,14 +22,14 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 16px;
-    padding-bottom: 8px;
+    margin-bottom: 12px;
+    padding-bottom: 6px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .settings-close {
     position: absolute;
-    top: 8px;
+    top: 5px;
     right: 15px;
     width: 36px;
     height: 36px;
@@ -52,8 +50,8 @@
 
 .settings-section-title {
     color: #fff;
-    font-size: 1.1rem;
-    margin: 0.5rem 0 1rem;
+    font-size: 1rem;
+    margin: 0.4rem 0 0.8rem;
     font-weight: 500;
 }
 
@@ -65,13 +63,13 @@
             rgba(255, 255, 255, 0.15),
             transparent
     );
-    margin: 1.5rem 0;
+    margin: 1rem 0;
 }
 
 /* Setting Groups */
 .setting-group {
-    margin-bottom: 12px;
-    padding: 10px;
+    margin-bottom: 8px;
+    padding: 8px;
     background: rgba(255, 255, 255, 0.05);
     border-radius: 10px;
 }
@@ -99,8 +97,8 @@
 }
 
 .checkbox-custom {
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
     border: 2px solid rgba(255, 255, 255, 0.3);
     border-radius: 6px;
     display: inline-flex;
@@ -128,9 +126,9 @@
     -webkit-appearance: none;
     background: linear-gradient(
             to right,
-            rgba(154, 150, 150, 0.3) 0%,
-            rgba(175, 171, 171, 0.3) var(--range-percent, 50%),
-            rgba(255, 255, 255, 0.05) var(--range-percent, 50%)
+            rgba(177, 174, 174, 0.3) 0%,
+            rgba(175, 171, 171, 0.3) 50%,
+            rgba(255, 255, 255, 0.05) 50%
     );
     cursor: pointer;
 }
@@ -156,21 +154,21 @@
 /* Button Container */
 .settings-buttons {
     display: flex;
-    gap: 12px;
-    margin-top: 20px;
+    gap: 10px;
+    margin-top: 16px;
 }
 
 /* Action Buttons */
 .settings-buttons button {
     flex: 1;
-    padding: 8px 16px;
+    padding: 6px 14px;
     background: #000;
     color: white;
     border: 2px solid #3c3c3c;
     border-radius: 13px;
     cursor: pointer;
     font-family: "IBM Plex Mono", monospace;
-    font-size: 0.95rem;
+    font-size: 0.9rem;
 }
 
 .settings-buttons button:hover {
@@ -182,13 +180,13 @@
     color: white;
     border: 2px solid #3c3c3c;
     border-radius: 13px;
-    padding: 8px;
-    height: 40px;
-    width: 40px;
+    padding: 6px;
+    height: 36px;
+    width: 36px;
     cursor: pointer;
     margin-left: 10px;
     font-family: "IBM Plex Mono", monospace;
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     display: flex;
     align-items: center;
     justify-content: center;

@@ -18,6 +18,8 @@ export class SequenceGame {
         this.events = new GameEvents(this);
         this.state = this.events.bindEvents();
 
+        this.isShowingSequence = false;
+
         // Initialize settings manager
         this.settings = new SettingsManager(this);
 
@@ -138,6 +140,10 @@ export class SequenceGame {
     }
 
     computerTurn() {
+        // Prevent multiple sequences from running
+        if (this.isShowingSequence) return;
+        this.isShowingSequence = true;
+
         this.state.gameActive = false;
         this.statusText.textContent = "computer's turn";
         this.startButton.disabled = true;
@@ -170,8 +176,9 @@ export class SequenceGame {
                 i++;
                 setTimeout(showSequence, this.state.currentMode.speedOfSelection);
             } else {
-                // Reset last shown box after sequence is complete
+                // Reset last shown box and sequence flag after sequence is complete
                 this.lastShownBox = null;
+                this.isShowingSequence = false;
 
                 setTimeout(() => {
                     this.statusText.textContent = "your turn";
@@ -189,6 +196,7 @@ export class SequenceGame {
         this.state.sequence = [];
         this.state.playerSequence = [];
         this.lastShownBox = null;
+        this.isShowingSequence = false;  // Add this line
         if (this.state.usedBoxesThisTurn) {
             this.state.usedBoxesThisTurn.clear();
         }

@@ -100,14 +100,19 @@ export class GameEvents {
             this.state.tempMode = { ...gameModes.sequence[currentModeName] };
             this.game.updateSettingsUI(this.state.tempMode);
 
-            // Update all range inputs after reset
-            document.querySelectorAll('.setting-group input[type="range"]').forEach(input => {
-                const min = input.min || 0;
-                const max = input.max || 100;
-                const value = input.value;
-                const percentage = ((value - min) * 100) / (max - min);
-                input.style.setProperty('--range-percent', `${percentage}%`);
-            });
+            // Update range inputs after a small delay to ensure DOM updates
+            setTimeout(() => {
+                document.querySelectorAll('.setting-group input[type="range"]').forEach(input => {
+                    const min = parseFloat(input.min) || 0;
+                    const max = parseFloat(input.max) || 100;
+                    const value = parseFloat(input.value);
+                    const percentage = ((value - min) * 100) / (max - min);
+                    input.style.background = `linear-gradient(to right, 
+                        rgba(154, 150, 150, 0.3) 0%, 
+                        rgba(175, 171, 171, 0.3) ${percentage}%, 
+                        rgba(255, 255, 255, 0.05) ${percentage}%)`;
+                });
+            }, 50);
         });
     }
 

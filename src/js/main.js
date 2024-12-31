@@ -1,9 +1,6 @@
+// main.js
 import { SequenceGame } from './games/sequence.js';
 import './ui/sidebar.js';
-
-document.addEventListener('DOMContentLoaded', () => {
-    const game = new SequenceGame();
-});
 
 document.addEventListener('DOMContentLoaded', () => {
     const game = new SequenceGame();
@@ -13,7 +10,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const max = input.max || 100;
         const value = input.value;
         const percentage = ((value - min) * 100) / (max - min);
-        input.style.setProperty('--range-percent', `${percentage}%`);
+        input.style.background = `linear-gradient(to right, 
+            rgba(154, 150, 150, 0.3) 0%, 
+            rgba(175, 171, 171, 0.3) ${percentage}%, 
+            rgba(255, 255, 255, 0.05) ${percentage}%)`;
     };
 
     const rangeInputs = document.querySelectorAll('.setting-group input[type="range"]');
