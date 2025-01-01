@@ -1,6 +1,7 @@
+// src/js/games/core/sequence.js
 import gameModes from '../modes.js';
-import { GameEvents } from './events/sequence_events.js';
-import { SettingsManager } from '../settings_manager.js';
+import { GameEvents } from '../events/sequence_events.js';
+import { SettingsManager } from '../../ui/utilities/settings_manager.js';
 
 
 export class SequenceGame {
@@ -13,22 +14,18 @@ export class SequenceGame {
         this.settingsPanel = document.querySelector('.settings-panel');
         this.settingsButton = document.getElementById('settingsButton');
         this.settingsCloseButton = document.querySelector('.settings-close');
-
         this.lastShownBox = null;
         this.events = new GameEvents(this);
         this.state = this.events.bindEvents();
-
         this.isShowingSequence = false;
-
-        // Initialize settings manager
         this.settings = new SettingsManager(this);
-
-        // Initialize dropdown state
         this.isDropdownVisible = false;
         this.loadMode('normal');
     }
 
     loadMode(modeName) {
+        if (this.state.gameActive) return;
+
         this.state.currentMode = JSON.parse(JSON.stringify(gameModes.sequence[modeName]));
         this.modeButton.textContent = `mode: ${modeName}`;
         this.settings.updateSettingsUI();
@@ -48,10 +45,13 @@ export class SequenceGame {
         this.state.playerSequence = [];
         this.startButton.textContent = 'end game';
         this.startButton.disabled = true;
+        this.modeButton.classList.add('disabled');
+        this.settingsButton.classList.add('disabled');
+        this.modeButton.disabled = true
+        this.settingsButton.disabled = true
         this.computerTurn();
     }
 
-    // Add a separate method for player clicks
     highlightBoxForPlayer(index, duration = this.state.currentMode.highlightTimer) {
         const boxes = document.querySelectorAll('.game-box');
         const box = boxes[index];
@@ -62,25 +62,21 @@ export class SequenceGame {
         }, duration);
     }
 
-    // Renamed to make it clear this is for computer sequence
     highlightBoxInSequence(index, duration = this.state.currentMode.highlightTimer) {
         const boxes = document.querySelectorAll('.game-box');
         const box = boxes[index];
 
-        // Check if this box is a repetition of the immediately previous box
         const isRepeated = this.lastShownBox === index;
 
         if (isRepeated) {
             box.classList.add('repeated');
         }
 
-        // Update the last shown box
         this.lastShownBox = index;
 
         box.classList.add('highlighted');
         setTimeout(() => {
             box.classList.remove('highlighted');
-            // Remove repeated class after highlight ends
             setTimeout(() => {
                 box.classList.remove('repeated');
             }, 300);
@@ -96,13 +92,19 @@ export class SequenceGame {
                 this.state.sequence = [];
                 this.startButton.disabled = false;
                 this.startButton.textContent = 'start game';
+                this.modeButton.disabled = false;
+                this.settingsButton.disabled = false;
+                this.modeButton.classList.remove('disabled');
+                this.settingsButton.classList.remove('disabled');
+                document.querySelectorAll('.setting-group input').forEach(input => {
+                    input.disabled = false;
+                });
             }
         }, this.state.currentMode.timerSelection);
     }
 
     getRandomBox() {
         if (this.state.currentMode.repetitionEnabled) {
-            // For lower AI difficulties, favor choosing previous boxes
             if (Math.random() * 10 > this.state.currentMode.aiDifficulty && this.state.sequence.length > 0) {
                 return this.state.sequence[Math.floor(Math.random() * this.state.sequence.length)];
             }
@@ -121,7 +123,6 @@ export class SequenceGame {
                 }
             }
 
-            // For lower AI difficulties, try to maintain patterns
             if (Math.random() * 10 > this.state.currentMode.aiDifficulty && this.state.sequence.length >= 2) {
                 const lastBox = this.state.sequence[this.state.sequence.length - 1];
                 const pattern = lastBox - this.state.sequence[this.state.sequence.length - 2];
@@ -140,26 +141,23 @@ export class SequenceGame {
     }
 
     computerTurn() {
-        // Prevent multiple sequences from running
         if (this.isShowingSequence) return;
         this.isShowingSequence = true;
 
         this.state.gameActive = false;
         this.statusText.textContent = "computer's turn";
         this.startButton.disabled = true;
+        this.modeButton.disabled = true;
+        this.startButton.disabled = true;
 
-        // Reset last shown box at the start of computer's turn
         this.lastShownBox = null;
 
-        // Initialize usedBoxesThisTurn if needed
         if (!this.state.currentMode.repetitionEnabled) {
             if (!this.state.usedBoxesThisTurn) {
                 this.state.usedBoxesThisTurn = new Set();
             }
-            // Only clear the Set if we've used ALL available boxes
             if (this.state.usedBoxesThisTurn.size >= this.state.currentMode.numberOfBoxes) {
                 this.state.usedBoxesThisTurn.clear();
-                // After clearing, add all sequence boxes back to prevent their reuse
                 for (let box of this.state.sequence) {
                     this.state.usedBoxesThisTurn.add(box);
                 }
@@ -176,7 +174,6 @@ export class SequenceGame {
                 i++;
                 setTimeout(showSequence, this.state.currentMode.speedOfSelection);
             } else {
-                // Reset last shown box and sequence flag after sequence is complete
                 this.lastShownBox = null;
                 this.isShowingSequence = false;
 
@@ -196,7 +193,7 @@ export class SequenceGame {
         this.state.sequence = [];
         this.state.playerSequence = [];
         this.lastShownBox = null;
-        this.isShowingSequence = false;  // Add this line
+        this.isShowingSequence = false;
         if (this.state.usedBoxesThisTurn) {
             this.state.usedBoxesThisTurn.clear();
         }
@@ -205,5 +202,12 @@ export class SequenceGame {
         this.startButton.disabled = false;
         this.startButton.textContent = 'start game';
         this.statusText.textContent = "click start to begin";
+        this.modeButton.classList.remove('disabled');
+        this.settingsButton.classList.remove('disabled');
+        this.modeButton.disabled = false
+        this.settingsButton.disabled = false
+        document.querySelectorAll('.setting-group input').forEach(input => {
+            input.disabled = false;
+        });
     }
 }

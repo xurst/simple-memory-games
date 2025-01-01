@@ -18,11 +18,22 @@
     -webkit-tap-highlight-color: transparent;
 }
 
+.game-divider {
+    height: 1px;
+    background: linear-gradient(
+            to right,
+            transparent,
+            rgba(255, 255, 255, 0.15),
+            transparent
+    );
+    margin: 1rem 0;
+    width: 100%;
+}
+
 .game-box.highlighted {
     background-color: white;
 }
 
-/* Repetition animation */
 .game-box.repeated {
     animation: pulse 0.3s ease-in-out;
 }
@@ -44,7 +55,7 @@
 
 .status-text {
     text-align: center;
-    margin-top: 20px;
+    margin: 10px 0 20px;
     font-size: 1.2em;
 }
 
@@ -57,7 +68,7 @@
     cursor: pointer;
     font-family: "IBM Plex Mono", monospace;
     transition: border-color 0.3s;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 .start-button:hover {

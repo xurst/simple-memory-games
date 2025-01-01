@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
+<button class="toggle-button">☰</button>
 <div class="sidebar">
     <h1 class="sidebar-title">memory games</h1>
     <div class="memory-game-list">
@@ -24,16 +25,16 @@
 
     <h1 class="sidebar-title">stuff</h1>
     <div class="memory-game-list">
-        <div class="memory-game">settings (WIP)</div>
-        <div class="memory-game">game logs</div>
+        <div class="memory-game protected-feature">settings (WIP)</div>
+        <a href="game_records.html" class="memory-game protected-feature">game logs</a>
     </div>
 
     <div class="sidebar-divider"></div>
 
     <h1 class="sidebar-title">important</h1>
     <div class="memory-game-list">
-        <div class="memory-game">sign in</div>
-        <div class="memory-game">log out</div>
+        <div class="memory-game auth-signin">sign in</div>
+        <div class="memory-game auth-logout">log out</div>
     </div>
 
 </div>
@@ -64,24 +65,39 @@
                 <div class="settings-content">
                     <h3 class="settings-section-title">mode settings</h3>
                     <div class="setting-group">
-                        <label>highlight duration (ms): <span class="setting-value" id="highlightValue">1000</span></label>
-                        <input type="range" id="highlightTimer" min="25" max="2000" step="25">
+                        <label>highlight duration: <span class="setting-value" id="highlightValue">1000</span></label>
+                        <div class="setting-input-wrapper">
+                            <input type="range" id="highlightTimer" min="25" max="2000" step="25">
+                            <input type="number" id="highlightTimerText" class="setting-text-input" min="25" max="2000">
+                        </div>
                     </div>
                     <div class="setting-group">
-                        <label>time to answer (ms): <span class="setting-value" id="timerValue">10000</span></label>
-                        <input type="range" id="timerSelection" min="250" max="20000" step="250">
+                        <label>time to answer: <span class="setting-value" id="timerValue">10000</span></label>
+                        <div class="setting-input-wrapper">
+                            <input type="range" id="timerSelection" min="250" max="20000" step="250">
+                            <input type="number" id="timerSelectionText" class="setting-text-input" min="250" max="20000">
+                        </div>
                     </div>
                     <div class="setting-group">
-                        <label>sequence speed (ms): <span class="setting-value" id="speedValue">1000</span></label>
-                        <input type="range" id="speedOfSelection" min="50" max="2000" step="50">
+                        <label>sequence speed: <span class="setting-value" id="speedValue">1000</span></label>
+                        <div class="setting-input-wrapper">
+                            <input type="range" id="speedOfSelection" min="50" max="2000" step="50">
+                            <input type="number" id="speedOfSelectionText" class="setting-text-input" min="50" max="2000">
+                        </div>
                     </div>
                     <div class="setting-group">
-                        <label>turn delay (ms): <span class="setting-value" id="delayValue">600</span></label>
-                        <input type="range" id="turnDelay" min="5" max="1200" step="5">
+                        <label>turn delay: <span class="setting-value" id="delayValue">600</span></label>
+                        <div class="setting-input-wrapper">
+                            <input type="range" id="turnDelay" min="5" max="1200" step="5">
+                            <input type="number" id="turnDelayText" class="setting-text-input" min="5" max="1200">
+                        </div>
                     </div>
                     <div class="setting-group">
                         <label>AI difficulty: <span class="setting-value" id="aiDifficultyValue">4</span></label>
-                        <input type="range" id="aiDifficulty" min="2" max="50" step="2">
+                        <div class="setting-input-wrapper">
+                            <input type="range" id="aiDifficulty" min="2" max="50" step="1">
+                            <input type="number" id="aiDifficultyText" class="setting-text-input" min="2" max="50">
+                        </div>
                     </div>
 
                     <div class="settings-divider"></div>
@@ -96,15 +112,24 @@
                     </div>
                     <div class="setting-group">
                         <label>number of boxes: <span class="setting-value" id="numberOfBoxesValue">4</span></label>
-                        <input type="range" id="numberOfBoxes" min="2" max="50" step="1">
+                        <div class="setting-input-wrapper">
+                            <input type="range" id="numberOfBoxes" min="2" max="50" step="1">
+                            <input type="number" id="numberOfBoxesText" class="setting-text-input" min="2" max="50">
+                        </div>
                     </div>
                     <div class="setting-group">
                         <label>boxes grid: <span class="setting-value" id="boxesGridValue">4</span></label>
-                        <input type="range" id="boxesGrid" min="2" max="10" step="1">
+                        <div class="setting-input-wrapper">
+                            <input type="range" id="boxesGrid" min="2" max="10" step="1">
+                            <input type="number" id="boxesGridText" class="setting-text-input" min="2" max="10">
+                        </div>
                     </div>
                     <div class="setting-group">
                         <label>boxes size (px): <span class="setting-value" id="boxesSizeValue">80</span></label>
-                        <input type="range" id="boxesSize" min="40" max="120" step="5">
+                        <div class="setting-input-wrapper">
+                            <input type="range" id="boxesSize" min="40" max="120" step="5">
+                            <input type="number" id="boxesSizeText" class="setting-text-input" min="40" max="120">
+                        </div>
                     </div>
                     <div class="settings-buttons">
                         <button class="settings-save">save custom settings</button>
@@ -113,16 +138,19 @@
                 </div>
             </div>
             <button id="startButton" class="start-button">start game</button>
+            <div class="game-divider"></div>
+            <div class="status-text">click start to begin</div>
             <div class="game-grid">
                 <div class="game-box" data-index="0"></div>
                 <div class="game-box" data-index="1"></div>
                 <div class="game-box" data-index="2"></div>
                 <div class="game-box" data-index="3"></div>
             </div>
-            <div class="status-text">click start to begin</div>
         </div>
     </div>
 </div>
+<script type="module" src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js"></script>
+<script type="module" src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js"></script>
 <script type="module" src="src/js/main.js"></script>
 </body>
 </html>

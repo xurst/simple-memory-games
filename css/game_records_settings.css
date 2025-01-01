@@ -1,0 +1,104 @@
+/* game_records_settings.css */
+.game-log-entry .settings-panel {
+    position: absolute;
+    top: 0;
+    left: 105%;
+    width: 300px;
+    background: rgb(15, 15, 15);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 15px;
+    font-family: "IBM Plex Mono", monospace;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    z-index: 100;
+}
+
+.game-log-entry {
+    position: relative;
+}
+
+.game-log-entry .settings-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.game-log-entry .settings-header h2 {
+    font-size: 1rem;
+    color: #fff;
+    font-weight: normal;
+    margin: 0;
+}
+
+.game-log-entry .settings-close {
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+}
+
+.game-log-entry .settings-close:hover {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.game-log-entry .settings-section-title {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.7);
+    margin: 15px 0 10px;
+    font-weight: normal;
+}
+
+.game-log-entry .setting-group {
+    margin-bottom: 8px;
+}
+
+.game-log-entry .setting-group label {
+    display: flex;
+    justify-content: space-between;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.85rem;
+}
+
+.game-log-entry .setting-group .setting-value {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.game-log-entry .settings-divider {
+    height: 1px;
+    background: rgba(255, 255, 255, 0.1);
+    margin: 15px 0;
+}
+
+/* Animation */
+.game-log-entry .settings-panel {
+    transform-origin: top center;
+    transition: all 0.2s ease-out;
+}
+
+.game-log-entry .settings-panel.hidden {
+    transform: scaleY(0.95) translateY(-10px);
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .game-log-entry .settings-panel {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 90%;
+        max-width: 320px;
+        max-height: 80vh;
+        overflow-y: auto;
+    }
+
+    .game-log-entry .settings-panel.hidden {
+        transform: translate(-50%, -45%) scale(0.95);
+    }
+}

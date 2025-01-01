@@ -1,0 +1,242 @@
+/* game_records.css */
+.game-logs-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.game-log-filters {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.search-container {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.search-input {
+    flex: 1;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    border: 2px solid rgba(60, 60, 60, 0.5);
+    padding: 8px 16px;
+    border-radius: 13px;
+    font-family: "IBM Plex Mono", monospace;
+    transition: border-color 0.3s, background-color 0.3s;
+    backdrop-filter: blur(8px);
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+.filter-button {
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    width: 135px;
+    border: 2px solid rgba(60, 60, 60, 0.5);
+    padding: 8px 16px;
+    border-radius: 13px;
+    cursor: pointer;
+    font-family: "IBM Plex Mono", monospace;
+    transition: border-color 0.3s, background-color 0.3s;
+    backdrop-filter: blur(8px);
+}
+
+.filter-button:hover {
+    border-color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+.filter-button.active {
+    border-color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+.search-filter-button {
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    width: 50px;
+    border: 2px solid rgba(60, 60, 60, 0.5);
+    padding: 8px 16px;
+    border-radius: 13px;
+    cursor: pointer;
+    font-family: "IBM Plex Mono", monospace;
+    transition: border-color 0.3s, background-color 0.3s;
+    backdrop-filter: blur(8px);
+}
+
+.search-filter-button:hover {
+    border-color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+.search-filter-button.active {
+    border-color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+.game-log-entry {
+    background: rgba(0, 0, 0, 0.8);
+    margin-bottom: 10px;
+    padding: 15px;
+    border-radius: 13px;
+    border: 2px solid rgba(60, 60, 60, 0.5);
+    transition: all 0.3s ease;
+    backdrop-filter: blur(8px);
+}
+
+.game-log-entry:hover {
+    transform: translateX(5px);
+    border-color: rgba(255, 255, 255, 0.8);
+}
+
+.game-log-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    color: #888;
+    font-size: 0.9em;
+}
+
+.game-log-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.game-log-content .settings-toggle {
+    padding: 4px;
+    height: 28px;
+    width: 35px;
+    margin-left: 10px;
+    opacity: 0.7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    border: 2px solid rgba(60, 60, 60, 0.5);
+    border-radius: 13px;
+    cursor: pointer;
+    font-family: "IBM Plex Mono", monospace;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(8px);
+}
+
+.game-log-content .settings-toggle:hover {
+    opacity: 1;
+    border-color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+.game-log-content .settings-toggle i {
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+/* Add styling for read-only settings */
+.settings-panel .setting-group {
+    opacity: 0.8;
+}
+
+.settings-panel .setting-group label {
+    cursor: default;
+}
+
+.settings-panel .setting-group:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.settings-panel .setting-value {
+    color: rgba(255, 255, 255, 0.7);
+    margin-left: auto;
+}
+
+.game-log-stats {
+    display: flex;
+    gap: 20px;
+    font-size: 0.9em;
+    color: #666;
+}
+
+.stat-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.pagination-button {
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    border: 2px solid rgba(60, 60, 60, 0.5);
+    padding: 8px 16px;
+    border-radius: 13px;
+    cursor: pointer;
+    font-family: "IBM Plex Mono", monospace;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(8px);
+}
+
+.pagination-button:hover:not(:disabled) {
+    border-color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+.pagination-button.active {
+    border-color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+.pagination-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.pagination-input {
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    border: 2px solid rgba(60, 60, 60, 0.5);
+    padding: 8px;
+    width: 60px;
+    border-radius: 13px;
+    font-family: "IBM Plex Mono", monospace;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.pagination-input:focus {
+    outline: none;
+    border-color: rgba(255, 255, 255, 0.8);
+}
+
+.pagination-text {
+    color: #888;
+}
+
+.no-logs-message {
+    text-align: center;
+    color: #666;
+    padding: 40px;
+}

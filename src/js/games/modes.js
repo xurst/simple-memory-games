@@ -1,3 +1,4 @@
+// modes.js
 const gameModes = {
     sequence: {
         easy: {
@@ -51,7 +52,7 @@ const gameModes = {
         xurst: {
             name: 'xurst',
             highlightTimer: 100,
-            timerSelection: 750,
+            timerSelection: 450,
             speedOfSelection: 100,
             turnDelay: 100,
             repetitionEnabled: false,

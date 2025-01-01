@@ -6,10 +6,17 @@
 }
 
 body {
-    min-height: 100vh;
+    margin: 0;
+    padding: 0;
     background-color: #000;
     font-family: "IBM Plex Mono", monospace;
     color: white;
+    -webkit-font-smoothing: antialiased;
+    overflow: hidden;
+}
+
+html {
+    overflow: hidden;
 }
 
 .container {

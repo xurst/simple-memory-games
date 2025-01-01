@@ -13,8 +13,9 @@
     "npm": "10.x"
   },
   "dependencies": {
-    "express": "^4.18.2",
     "compression": "^1.7.4",
+    "express": "^4.18.2",
+    "firebase": "^11.1.0",
     "helmet": "^7.1.0"
   },
   "devDependencies": {

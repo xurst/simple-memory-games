@@ -1,4 +1,3 @@
-/* Settings Panel Container */
 .settings-panel {
     position: fixed;
     top: 50%;
@@ -11,10 +10,32 @@
     border-radius: 13px;
     padding: 12px;
     width: 280px;
+    max-height: 90vh;
     z-index: 2000;
     box-shadow:
             0 4px 20px rgba(0, 0, 0, 0.2),
             0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+.settings-content {
+    overflow-y: auto;
+    max-height: calc(90vh - 70px);
+    padding-right: 8px;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+}
+
+.settings-content::-webkit-scrollbar {
+    width: 4px;
+}
+
+.settings-content::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.settings-content::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
 }
 
 /* Header Section */
@@ -42,6 +63,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: border-color 0.3s, background-color 0.3s;
 }
 
 .settings-close:hover {
@@ -72,6 +94,77 @@
     padding: 8px;
     background: rgba(255, 255, 255, 0.05);
     border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.setting-group::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+            45deg,
+            transparent,
+            rgba(255, 255, 255, 0.05),
+            transparent
+    );
+    transform: translateX(-100%);
+    transition: transform 0.6s;
+}
+
+/* Add to custom_settings.css */
+.setting-input-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.setting-text-input {
+    width: 70px;
+    padding: 4px 8px;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    color: white;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.9rem;
+}
+
+.setting-text-input:focus {
+    outline: none;
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+.setting-group input[type="range"] {
+    flex: 1;
+}
+
+.setting-group input[type="number"] {
+    width: 70px;
+    padding: 4px 8px;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    color: white;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.9rem;
+    -moz-appearance: textfield;
+}
+
+.setting-group input[type="number"]::-webkit-outer-spin-button,
+.setting-group input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.setting-group input[type="number"]:focus {
+    outline: none;
+    border-color: rgba(255, 255, 255, 0.4);
 }
 
 .setting-group:last-child {
@@ -79,7 +172,13 @@
 }
 
 .setting-group:hover {
-    background: rgba(255, 255, 255, 0.1);
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: translateX(4px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.setting-group:hover::before {
+    transform: translateX(100%);
 }
 
 /* Custom Checkbox */
@@ -119,6 +218,7 @@
 
 /* Range Input Styling */
 .setting-group input[type="range"] {
+    flex: 1;
     width: 100%;
     margin-top: 8px;
     height: 4px;
@@ -169,6 +269,7 @@
     cursor: pointer;
     font-family: "IBM Plex Mono", monospace;
     font-size: 0.9rem;
+    transition: border-color 0.3s, background-color 0.3s;
 }
 
 .settings-buttons button:hover {

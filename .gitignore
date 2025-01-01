@@ -5,4 +5,5 @@ node_modules/
 *.log
 npm-debug.log*
 .idea/
+src/js/services/firebase-config.js
 EOL
