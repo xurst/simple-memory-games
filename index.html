@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="mobile-web-app-capable" content="yes">
     <title>xurst's memory games</title>
     <link href="css/body.css" rel="stylesheet">
@@ -18,7 +18,7 @@
     <h1 class="sidebar-title">memory games</h1>
     <div class="memory-game-list">
         <div class="memory-game active">sequence memory</div>
-        <div class="memory-game disabled">more games...</div>
+        <div class="memory-game disabled">more memory games...</div>
     </div>
 
     <div class="sidebar-divider"></div>
@@ -37,6 +37,14 @@
         <div class="memory-game auth-logout">log out</div>
     </div>
 
+    <div class="sidebar-divider"></div>
+
+    <h1 class="sidebar-title">about</h1>
+    <div class="memory-game-list">
+        <div class="memory-game">about the creator</div>
+        <div class="memory-game">other projects</div>
+    </div>
+
 </div>
 <button class="toggle-button right-toggle-button">☰</button>
 <div class="main-content">
@@ -45,9 +53,7 @@
             <h1 class="title">sequence memory</h1>
             <div class="mode-selector">
                 <button id="modeButton">mode: normal</button>
-                <button id="settingsButton" class="settings-toggle">
-                    <i class="fa-solid fa-gear"></i>
-                </button>
+                <button id="settingsButton" class="settings-toggle">settings</button>
                 <div class="mode-dropdown hidden">
                     <div class="mode-option" data-mode="easy">easy</div>
                     <div class="mode-option" data-mode="normal">normal</div>
@@ -139,7 +145,7 @@
             </div>
             <button id="startButton" class="start-button">start game</button>
             <div class="game-divider"></div>
-            <div class="status-text">click start to begin</div>
+            <div class="status-text">click start game to begin</div>
             <div class="game-grid">
                 <div class="game-box" data-index="0"></div>
                 <div class="game-box" data-index="1"></div>

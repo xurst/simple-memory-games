@@ -25,14 +25,17 @@ export class SettingsManager {
     closeSettings() {
         if (!this.isSettingsVisible) return;
         this.settingsPanel.classList.add('hidden');
-        this.isSettingsVisible = false;
-        this.settingsButton.classList.remove('active');
+        setTimeout(() => {
+            this.isSettingsVisible = false;
+            this.settingsButton.classList.remove('active');
+        }, 300);    
     }
 
     toggleSettings() {
         if (this.isSettingsVisible) {
             this.closeSettings();
         } else {
+            this.settingsPanel.style.display = 'block';
             this.settingsPanel.classList.remove('hidden');
             this.isSettingsVisible = true;
             this.settingsButton.classList.add('active');
@@ -118,10 +121,15 @@ export class SettingsManager {
     }
 
     initializeSettingsEvents() {
+        const settingGroups = document.querySelectorAll('.setting-group');
         this.settingsButton.addEventListener('click', () => this.toggleSettings());
         this.settingsCloseButton.addEventListener('click', (e) => {
             e.preventDefault();
             this.closeSettings();
+        });
+
+        settingGroups.forEach((group, index) => {
+            group.style.setProperty('--index', index);
         });
 
         document.addEventListener('click', (e) => {

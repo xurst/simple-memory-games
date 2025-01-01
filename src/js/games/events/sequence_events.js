@@ -51,6 +51,7 @@ export class GameEvents {
         if (this.state.playerSequence.length === this.state.sequence.length) {
             this.state.gameActive = false;
             this.game.statusText.textContent = "correct!";
+            this.game.startButton.disabled = true;
             clearTimeout(this.state.selectionTimer);
             setTimeout(() => this.game.computerTurn(), 1000);
         }
@@ -94,10 +95,6 @@ export class GameEvents {
             this.game.updateSettingsUI();
         });
 
-        document.querySelector('.settings-close').addEventListener('click', () => {
-            settingsPanel.classList.add('hidden');
-        });
-
         document.querySelectorAll('.setting-group input').forEach(input => {
             input.addEventListener('input', (e) => {
                 if (this.state.gameActive) {
@@ -106,15 +103,6 @@ export class GameEvents {
                 }
                 this.handleSettingInput(e);
             });
-        });
-
-        document.querySelector('.settings-save').addEventListener('click', () => {
-            if (this.state.gameActive) {
-                return;
-            }
-            Object.assign(this.state.currentMode, this.state.tempMode);
-            settingsPanel.classList.add('hidden');
-            this.game.updateVisibleBoxes();
         });
 
         document.querySelector('.settings-reset').addEventListener('click', () => {

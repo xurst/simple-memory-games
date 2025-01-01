@@ -201,7 +201,7 @@ export class SequenceGame {
         this.state.gameActive = false;
         this.startButton.disabled = false;
         this.startButton.textContent = 'start game';
-        this.statusText.textContent = "click start to begin";
+        this.statusText.textContent = "click start game to begin";
         this.modeButton.classList.remove('disabled');
         this.settingsButton.classList.remove('disabled');
         this.modeButton.disabled = false

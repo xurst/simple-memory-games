@@ -1,61 +1,81 @@
 .settings-panel {
     position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: rgba(15, 15, 15, 0.85);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%) scale(0.9);
+    opacity: 0;
+    background: rgba(15,15,15,0.85);
     backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255,255,255,0.1);
     border-radius: 13px;
-    padding: 12px;
-    width: 280px;
+    padding: 10px;
+    width: 260px;
     max-height: 90vh;
     z-index: 2000;
-    box-shadow:
-            0 4px 20px rgba(0, 0, 0, 0.2),
-            0 0 0 1px rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2), 0 0 0 1px rgba(255,255,255,0.1);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: block;
+}
+
+.settings-panel .setting-group {
+    transform: translateY(20px);
+    opacity: 0;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition-delay: calc(var(--index, 0) * 0.05s);
+    margin-bottom: 6px;
+    padding: 6px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+}
+
+.settings-panel:not(.hidden) {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+}
+
+.settings-panel:not(.hidden) .setting-group {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.settings-panel.hidden {
+    transform: translate(-50%, -50%) scale(0.9);
+    opacity: 0;
+    pointer-events: none;
+    visibility: hidden;
 }
 
 .settings-content {
     overflow-y: auto;
-    max-height: calc(90vh - 70px);
-    padding-right: 8px;
+    max-height: calc(90vh - 60px);
+    padding-right: 6px;
     scrollbar-width: thin;
-    scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+    scrollbar-color: rgba(255,255,255,0.2) transparent;
 }
 
-.settings-content::-webkit-scrollbar {
-    width: 4px;
-}
-
-.settings-content::-webkit-scrollbar-track {
-    background: transparent;
-}
-
+.settings-content::-webkit-scrollbar { width: 3px; }
+.settings-content::-webkit-scrollbar-track { background: transparent; }
 .settings-content::-webkit-scrollbar-thumb {
-    background-color: rgba(255, 255, 255, 0.2);
-    border-radius: 4px;
+    background-color: rgba(255,255,255,0.2);
+    border-radius: 3px;
 }
 
-/* Header Section */
 .settings-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 12px;
-    padding-bottom: 6px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
 }
 
 .settings-close {
     position: absolute;
-    top: 5px;
-    right: 12px;
-    width: 36px;
-    height: 36px;
-    font-size: 30px;
-    background: rgba(255, 255, 255, 0.1);
+    top: 4px; right: 10px;
+    width: 32px; height: 32px;
+    font-size: 26px;
+    background: rgba(255,255,255,0.1);
     border: none;
     border-radius: 8px;
     color: #fff;
@@ -63,98 +83,57 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: border-color 0.3s, background-color 0.3s;
+    transition: background-color 0.3s;
 }
 
-.settings-close:hover {
-    background: rgba(255, 255, 255, 0.2);
-}
+.settings-close:hover { background: rgba(255,255,255,0.2); }
 
 .settings-section-title {
     color: #fff;
     font-size: 1rem;
-    margin: 0.4rem 0 0.8rem;
+    margin: 0.4rem 0 0.6rem;
     font-weight: 500;
 }
 
 .settings-divider {
     height: 1px;
-    background: linear-gradient(
-            to right,
-            transparent,
-            rgba(255, 255, 255, 0.15),
-            transparent
-    );
-    margin: 1rem 0;
-}
-
-/* Setting Groups */
-.setting-group {
-    margin-bottom: 8px;
-    padding: 8px;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 10px;
-    position: relative;
-    overflow: hidden;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background: linear-gradient(to right,transparent,rgba(255,255,255,0.15),transparent);
+    margin: 0.8rem 0;
 }
 
 .setting-group::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-            45deg,
-            transparent,
-            rgba(255, 255, 255, 0.05),
-            transparent
-    );
+    inset: 0;
+    background: linear-gradient(45deg,transparent,rgba(255,255,255,0.05),transparent);
     transform: translateX(-100%);
     transition: transform 0.6s;
 }
 
-/* Add to custom_settings.css */
 .setting-input-wrapper {
     display: flex;
     align-items: center;
-    gap: 8px;
-    margin-top: 8px;
+    gap: 6px;
+    margin-top: 6px;
 }
 
-.setting-text-input {
-    width: 70px;
-    padding: 4px 8px;
-    background: rgba(0, 0, 0, 0.3);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+.setting-text-input, .setting-group input[type="number"] {
+    width: 65px;
+    padding: 3px 6px;
+    background: rgba(0,0,0,0.3);
+    border: 1px solid rgba(255,255,255,0.2);
     border-radius: 6px;
     color: white;
-    font-family: "IBM Plex Mono", monospace;
+    font-family: "IBM Plex Mono",monospace;
     font-size: 0.9rem;
 }
 
-.setting-text-input:focus {
+.setting-text-input:focus, .setting-group input[type="number"]:focus {
     outline: none;
-    border-color: rgba(255, 255, 255, 0.4);
+    border-color: rgba(255,255,255,0.4);
 }
 
-.setting-group input[type="range"] {
-    flex: 1;
-}
-
-.setting-group input[type="number"] {
-    width: 70px;
-    padding: 4px 8px;
-    background: rgba(0, 0, 0, 0.3);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 6px;
-    color: white;
-    font-family: "IBM Plex Mono", monospace;
-    font-size: 0.9rem;
-    -moz-appearance: textfield;
-}
+.setting-group input[type="range"] { flex: 1; }
 
 .setting-group input[type="number"]::-webkit-outer-spin-button,
 .setting-group input[type="number"]::-webkit-inner-spin-button {
@@ -162,43 +141,26 @@
     margin: 0;
 }
 
-.setting-group input[type="number"]:focus {
-    outline: none;
-    border-color: rgba(255, 255, 255, 0.4);
-}
-
-.setting-group:last-child {
-    margin-bottom: 0;
-}
-
 .setting-group:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-    transform: translateX(4px);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    background-color: rgba(255,255,255,0.1);
 }
 
-.setting-group:hover::before {
-    transform: translateX(100%);
-}
+.setting-group:hover::before { transform: translateX(100%); }
 
-/* Custom Checkbox */
-.setting-group input[type="checkbox"] {
-    display: none;
-}
+.setting-group input[type="checkbox"] { display: none; }
 
 .setting-group label {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
     color: #fff;
     font-size: 0.95rem;
     cursor: pointer;
 }
 
 .checkbox-custom {
-    width: 18px;
-    height: 18px;
-    border: 2px solid rgba(255, 255, 255, 0.3);
+    width: 16px; height: 16px;
+    border: 2px solid rgba(255,255,255,0.3);
     border-radius: 6px;
     display: inline-flex;
     align-items: center;
@@ -213,29 +175,22 @@
 .setting-group input[type="checkbox"]:checked + .checkbox-custom::after {
     content: "✓";
     color: #000;
-    font-size: 14px;
+    font-size: 12px;
 }
 
-/* Range Input Styling */
 .setting-group input[type="range"] {
-    flex: 1;
     width: 100%;
-    margin-top: 8px;
-    height: 4px;
+    margin-top: 6px;
+    height: 3px;
     border-radius: 2px;
     -webkit-appearance: none;
-    background: linear-gradient(
-            to right,
-            rgba(177, 174, 174, 0.3) 0%,
-            rgba(175, 171, 171, 0.3) 50%,
-            rgba(255, 255, 255, 0.05) 50%
-    );
+    background: linear-gradient(to right,rgba(177,174,174,0.3) 0%,rgba(175,171,171,0.3) 50%,rgba(255,255,255,0.05) 50%);
     cursor: pointer;
 }
 
 .setting-group input[type="range"]::-webkit-slider-runnable-track {
     width: 100%;
-    height: 4px;
+    height: 3px;
     border-radius: 2px;
     -webkit-appearance: none;
     background: transparent;
@@ -243,37 +198,36 @@
 
 .setting-group input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none;
-    width: 16px;
-    height: 16px;
+    width: 14px; height: 14px;
     background: #fff;
     border-radius: 50%;
     cursor: pointer;
-    margin-top: -6px;
+    margin-top: -5.5px;
 }
 
-/* Button Container */
 .settings-buttons {
     display: flex;
-    gap: 10px;
-    margin-top: 16px;
+    gap: 8px;
+    margin-top: 12px;
 }
 
-/* Action Buttons */
 .settings-buttons button {
     flex: 1;
-    padding: 6px 14px;
+    padding: 5px 12px;
     background: #000;
     color: white;
     border: 2px solid #3c3c3c;
     border-radius: 13px;
     cursor: pointer;
-    font-family: "IBM Plex Mono", monospace;
+    font-family: "IBM Plex Mono",monospace;
     font-size: 0.9rem;
-    transition: border-color 0.3s, background-color 0.3s;
+    transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+    transform: translateY(0);
 }
 
 .settings-buttons button:hover {
     border-color: white;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 
 .settings-toggle {
@@ -281,27 +235,12 @@
     color: white;
     border: 2px solid #3c3c3c;
     border-radius: 13px;
-    padding: 6px;
-    height: 36px;
-    width: 36px;
+    padding: 8px 16px;
     cursor: pointer;
     margin-left: 10px;
-    font-family: "IBM Plex Mono", monospace;
+    font-family: "IBM Plex Mono",monospace;
     font-size: 0.9rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    transition: border-color 0.3s;
 }
 
-.settings-toggle:hover {
-    border-color: white;
-}
-
-.settings-toggle i {
-    font-size: 18px;
-    transition: transform 0.2s ease;
-}
-
-.settings-toggle:hover i {
-    transform: rotate(45deg);
-}
+.settings-toggle:hover { border-color: white; }
