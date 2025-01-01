@@ -3,7 +3,8 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    touch-action: pan-x pan-y;
+    touch-action: manipulation;
+    -webkit-touch-callout: none;
 }
 
 body {
@@ -14,6 +15,7 @@ body {
     color: white;
     -webkit-font-smoothing: antialiased;
     overflow: hidden;
+    -webkit-text-size-adjust: none;
 }
 
 html {
