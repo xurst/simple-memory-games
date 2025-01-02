@@ -16,7 +16,9 @@ app.use(helmet({
                 "'unsafe-eval'",
                 "https://www.gstatic.com",
                 "https://apis.google.com",
-                "https://cdnjs.cloudflare.com"
+                "https://cdnjs.cloudflare.com",
+                "https://*.firebaseapp.com",
+                "https://*.googleapis.com"
             ],
             styleSrc: [
                 "'self'",
@@ -26,16 +28,18 @@ app.use(helmet({
             frameSrc: [
                 "'self'",
                 "https://*.firebaseapp.com",
-                "https://*.google.com"
+                "https://*.google.com",
+                "https://simple-memory-games.firebaseapp.com"
             ],
             connectSrc: [
                 "'self'",
                 "https://*.firebaseapp.com",
                 "https://*.googleapis.com",
                 "https://identitytoolkit.googleapis.com",
-                "wss://*.firebaseio.com"
+                "wss://*.firebaseio.com",
+                "https://*.google.com"
             ],
-            imgSrc: ["'self'", "data:", "https:"],
+            imgSrc: ["'self'", "data:", "https:", "https://*.google.com"],
             fontSrc: [
                 "'self'",
                 "data:",

@@ -1,6 +1,14 @@
 // src/js/services/auth.js
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js';
-import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged, browserLocalPersistence }
+import {
+    getAuth,
+    signInWithPopup,
+    GoogleAuthProvider,
+    signOut,
+    onAuthStateChanged,
+    browserLocalPersistence,
+    signInWithRedirect
+}
     from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js';
 import firebaseConfig from './firebase-config.js';
 
@@ -11,17 +19,28 @@ export class AuthManager {
             this.auth = getAuth(app);
             this.provider = new GoogleAuthProvider();
             this.isSigningIn = false;
+            this.popupOpen = false;
 
-            // Initialize persistence after auth is ready
             this.initializePersistence().then(() => {
                 this.setupAuthListeners();
                 this.setupButtons();
                 this.setupProtectedElements();
             }).catch(error => {
                 console.error('Persistence initialization error:', error);
+                this.handleAuthError(error);
             });
         } catch (error) {
             console.error('Firebase initialization error:', error);
+            this.handleAuthError(error);
+        }
+    }
+
+    handleAuthError(error) {
+        if (error.code === 'auth/popup-closed-by-user' && !this.popupOpen) {
+            console.log('Attempting alternative sign-in method...');
+            this.retrySignIn();
+        } else {
+            console.error('Authentication error:', error.message);
         }
     }
 
@@ -118,22 +137,36 @@ export class AuthManager {
         }
     }
 
+    async retrySignIn() {
+        try {
+            const result = await signInWithRedirect(this.auth, this.provider);
+            return result;
+        } catch (error) {
+            console.error('Redirect sign-in error:', error);
+            throw error;
+        }
+    }
+
     async signIn() {
         try {
             if (this.isSigningIn) return;
             this.isSigningIn = true;
+            this.popupOpen = true;
 
             this.provider.setCustomParameters({
-                prompt: 'select_account'
+                prompt: 'select_account',
+                auth_type: 'reauthenticate'
             });
 
             const result = await signInWithPopup(this.auth, this.provider);
             return result.user;
         } catch (error) {
             console.error('Error signing in:', error);
+            this.handleAuthError(error);
             throw error;
         } finally {
             this.isSigningIn = false;
+            this.popupOpen = false;
         }
     }
 

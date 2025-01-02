@@ -5,7 +5,11 @@ const firebaseConfig = {
     storageBucket: "simple-memory-games.firebasestorage.app",
     messagingSenderId: "270544213024",
     appId: "1:270544213024:web:4049fc1ca688180d715845",
-    measurementId: "G-LN20TG1EXW"
+    measurementId: "G-LN20TG1EXW",
+    authenticationMethods: {
+        popup: true,
+        redirect: true
+    }
 };
 
 export default firebaseConfig;
