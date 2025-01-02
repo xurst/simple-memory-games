@@ -3,6 +3,7 @@ import { SequenceGame } from './games/core/sequence.js';
 import { SidebarManager } from './ui/components/sidebar.js';
 import { AuthManager } from './services/auth.js';
 import { RecordsSettingsManager } from './ui/views/records_settings.js';
+import 'dotenv/config';
 
 document.addEventListener('DOMContentLoaded', () => {
     new SidebarManager();
