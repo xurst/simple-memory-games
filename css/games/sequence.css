@@ -69,6 +69,8 @@
     font-family: "IBM Plex Mono", monospace;
     transition: border-color 0.3s;
     margin-bottom: 10px;
+    height: 40px;
+    width: 160px;
 }
 
 .start-button:hover {

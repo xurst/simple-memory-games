@@ -10,9 +10,12 @@ export class AuthManager {
             const app = initializeApp(firebaseConfig);
             this.auth = getAuth(app);
             this.provider = new GoogleAuthProvider();
+            this.auth.useDeviceLanguage();
             this.setupAuthListeners();
             this.setupButtons();
             this.setupProtectedElements();
+
+            this.auth.setPersistence('session');
         } catch (error) {
             console.error('Firebase initialization error:', error);
         }
@@ -77,13 +80,17 @@ export class AuthManager {
 
         if (signInButton) {
             signInButton.addEventListener('click', async () => {
-                if (!this.getCurrentUser()) {
+                if (!this.getCurrentUser() && !this.isSigningIn) {
                     try {
                         await this.signIn();
                     } catch (error) {
                         console.error('Sign in error:', error);
                         if (error.code === 'auth/configuration-not-found') {
                             alert('Authentication service is currently unavailable. Please try again later.');
+                        } else if (error.code === 'auth/popup-closed-by-user') {
+                            console.log('Sign-in popup was closed');
+                        } else {
+                            alert('An error occurred during sign in. Please try again.');
                         }
                     }
                 }
@@ -104,12 +111,18 @@ export class AuthManager {
     async signIn() {
         try {
             this.provider.setCustomParameters({
-                prompt: 'select_account'
+                prompt: 'select_account',
+                auth_type: 'reauthenticate'
             });
+
             const result = await signInWithPopup(this.auth, this.provider);
             return result.user;
         } catch (error) {
             console.error('Error signing in:', error);
+            if (error.code === 'auth/unauthorized-domain') {
+                console.error('Domain not authorized in Firebase Console');
+                alert('This domain is not authorized for authentication. Please check your Firebase Console settings.');
+            }
             throw error;
         }
     }

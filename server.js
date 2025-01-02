@@ -7,7 +7,34 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(helmet({
-    contentSecurityPolicy: false,
+    contentSecurityPolicy: {
+        directives: {
+            defaultSrc: ["'self'"],
+            scriptSrc: [
+                "'self'",
+                "'unsafe-inline'",
+                "'unsafe-eval'",
+                "https://www.gstatic.com",
+                "https://apis.google.com"
+            ],
+            frameSrc: [
+                "'self'",
+                "https://simple-memory-games.firebaseapp.com",
+                "https://simple-memory-games.web.app",
+                "https://accounts.google.com"
+            ],
+            connectSrc: [
+                "'self'",
+                "https://simple-memory-games.firebaseapp.com",
+                "https://simple-memory-games.web.app",
+                "https://identitytoolkit.googleapis.com",
+                "https://*.googleapis.com"
+            ],
+            imgSrc: ["'self'", "data:", "https:"],
+            styleSrc: ["'self'", "'unsafe-inline'"],
+            fontSrc: ["'self'", "data:", "https:"]
+        }
+    }
 }));
 
 app.use(compression());

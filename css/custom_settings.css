@@ -241,6 +241,8 @@
     font-family: "IBM Plex Mono",monospace;
     font-size: 0.9rem;
     transition: border-color 0.3s;
+    height: 40px;
+    width: 160px;
 }
 
 .settings-toggle:hover { border-color: white; }
