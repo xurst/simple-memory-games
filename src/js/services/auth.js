@@ -2,14 +2,13 @@
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js';
 import {
     getAuth,
-    signInWithPopup,
     GoogleAuthProvider,
     signOut,
     onAuthStateChanged,
     browserLocalPersistence,
-    signInWithRedirect
-}
-    from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js';
+    signInWithRedirect,
+    getRedirectResult
+} from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js';
 import firebaseConfig from './firebase-config.js';
 
 export class AuthManager {
@@ -19,12 +18,12 @@ export class AuthManager {
             this.auth = getAuth(app);
             this.provider = new GoogleAuthProvider();
             this.isSigningIn = false;
-            this.popupOpen = false;
 
             this.initializePersistence().then(() => {
                 this.setupAuthListeners();
                 this.setupButtons();
                 this.setupProtectedElements();
+                this.handleRedirectResult(); // Check for redirect result on load
             }).catch(error => {
                 console.error('Persistence initialization error:', error);
                 this.handleAuthError(error);
@@ -36,11 +35,25 @@ export class AuthManager {
     }
 
     handleAuthError(error) {
-        if (error.code === 'auth/popup-closed-by-user' && !this.popupOpen) {
-            console.log('Attempting alternative sign-in method...');
-            this.retrySignIn();
-        } else {
-            console.error('Authentication error:', error.message);
+        console.error('Authentication error:', error.message);
+        if (error.code === 'auth/cancelled-popup-request' ||
+            error.code === 'auth/popup-closed-by-user') {
+            // Ignore these specific errors as they're handled by redirect
+            return;
+        }
+        // Show error to user
+        alert('Authentication failed. Please try again.');
+    }
+
+    async handleRedirectResult() {
+        try {
+            const result = await getRedirectResult(this.auth);
+            if (result) {
+                console.log('Successfully signed in:', result.user.displayName);
+            }
+        } catch (error) {
+            console.error('Redirect result error:', error);
+            this.handleAuthError(error);
         }
     }
 
@@ -49,6 +62,7 @@ export class AuthManager {
             await this.auth.setPersistence(browserLocalPersistence);
         } catch (error) {
             console.error('Persistence setup error:', error);
+            throw error;
         }
     }
 
@@ -116,11 +130,7 @@ export class AuthManager {
                         await this.signIn();
                     } catch (error) {
                         console.error('Sign in error:', error);
-                        if (error.code === 'auth/popup-closed-by-user') {
-                            console.log('Sign-in popup was closed');
-                        } else {
-                            alert('An error occurred during sign in. Please try again.');
-                        }
+                        this.handleAuthError(error);
                     }
                 }
             });
@@ -132,18 +142,9 @@ export class AuthManager {
                     await this.signOut();
                 } catch (error) {
                     console.error('Sign out error:', error);
+                    this.handleAuthError(error);
                 }
             });
-        }
-    }
-
-    async retrySignIn() {
-        try {
-            const result = await signInWithRedirect(this.auth, this.provider);
-            return result;
-        } catch (error) {
-            console.error('Redirect sign-in error:', error);
-            throw error;
         }
     }
 
@@ -151,22 +152,19 @@ export class AuthManager {
         try {
             if (this.isSigningIn) return;
             this.isSigningIn = true;
-            this.popupOpen = true;
 
             this.provider.setCustomParameters({
-                prompt: 'select_account',
-                auth_type: 'reauthenticate'
+                prompt: 'select_account'
             });
 
-            const result = await signInWithPopup(this.auth, this.provider);
-            return result.user;
+            await signInWithRedirect(this.auth, this.provider);
+            // No need to return anything here as the redirect will happen
         } catch (error) {
             console.error('Error signing in:', error);
             this.handleAuthError(error);
             throw error;
         } finally {
             this.isSigningIn = false;
-            this.popupOpen = false;
         }
     }
 
@@ -175,6 +173,7 @@ export class AuthManager {
             await signOut(this.auth);
         } catch (error) {
             console.error('Error signing out:', error);
+            this.handleAuthError(error);
             throw error;
         }
     }
