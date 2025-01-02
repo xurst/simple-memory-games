@@ -49,8 +49,6 @@ app.use(helmet({
     }
 }));
 
-//
-
 app.use(compression());
 
 app.use(express.static(path.join(__dirname, './')));
