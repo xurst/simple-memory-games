@@ -23,7 +23,7 @@ export class AuthManager {
                 this.setupAuthListeners();
                 this.setupButtons();
                 this.setupProtectedElements();
-                this.handleRedirectResult(); // Check for redirect result on load
+                this.handleRedirectResult();
             }).catch(error => {
                 console.error('Persistence initialization error:', error);
                 this.handleAuthError(error);
@@ -38,7 +38,6 @@ export class AuthManager {
         console.error('Authentication error:', error.message);
         if (error.code === 'auth/cancelled-popup-request' ||
             error.code === 'auth/popup-closed-by-user') {
-            // Ignore these specific errors as they're handled by redirect
             return;
         }
         // Show error to user
@@ -158,7 +157,6 @@ export class AuthManager {
             });
 
             await signInWithRedirect(this.auth, this.provider);
-            // No need to return anything here as the redirect will happen
         } catch (error) {
             console.error('Error signing in:', error);
             this.handleAuthError(error);

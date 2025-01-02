@@ -16,6 +16,9 @@ yarn.lock
 # Firebase configuration
 src/js/services/firebase-config.js
 
+# But don't ignore the template
+!src/js/services/firebase-config.template.js
+
 # IDE - WebStorm
 .idea/
 *.iml
