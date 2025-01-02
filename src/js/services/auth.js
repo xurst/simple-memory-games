@@ -1,6 +1,6 @@
 // src/js/services/auth.js
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js';
-import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged }
+import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged, browserLocalPersistence }
     from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js';
 import firebaseConfig from './firebase-config.js';
 
@@ -10,14 +10,26 @@ export class AuthManager {
             const app = initializeApp(firebaseConfig);
             this.auth = getAuth(app);
             this.provider = new GoogleAuthProvider();
-            this.auth.useDeviceLanguage();
-            this.setupAuthListeners();
-            this.setupButtons();
-            this.setupProtectedElements();
+            this.isSigningIn = false;
 
-            this.auth.setPersistence('session');
+            // Initialize persistence after auth is ready
+            this.initializePersistence().then(() => {
+                this.setupAuthListeners();
+                this.setupButtons();
+                this.setupProtectedElements();
+            }).catch(error => {
+                console.error('Persistence initialization error:', error);
+            });
         } catch (error) {
             console.error('Firebase initialization error:', error);
+        }
+    }
+
+    async initializePersistence() {
+        try {
+            await this.auth.setPersistence(browserLocalPersistence);
+        } catch (error) {
+            console.error('Persistence setup error:', error);
         }
     }
 
@@ -85,9 +97,7 @@ export class AuthManager {
                         await this.signIn();
                     } catch (error) {
                         console.error('Sign in error:', error);
-                        if (error.code === 'auth/configuration-not-found') {
-                            alert('Authentication service is currently unavailable. Please try again later.');
-                        } else if (error.code === 'auth/popup-closed-by-user') {
+                        if (error.code === 'auth/popup-closed-by-user') {
                             console.log('Sign-in popup was closed');
                         } else {
                             alert('An error occurred during sign in. Please try again.');
@@ -110,20 +120,20 @@ export class AuthManager {
 
     async signIn() {
         try {
+            if (this.isSigningIn) return;
+            this.isSigningIn = true;
+
             this.provider.setCustomParameters({
-                prompt: 'select_account',
-                auth_type: 'reauthenticate'
+                prompt: 'select_account'
             });
 
             const result = await signInWithPopup(this.auth, this.provider);
             return result.user;
         } catch (error) {
             console.error('Error signing in:', error);
-            if (error.code === 'auth/unauthorized-domain') {
-                console.error('Domain not authorized in Firebase Console');
-                alert('This domain is not authorized for authentication. Please check your Firebase Console settings.');
-            }
             throw error;
+        } finally {
+            this.isSigningIn = false;
         }
     }
 

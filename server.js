@@ -15,24 +15,32 @@ app.use(helmet({
                 "'unsafe-inline'",
                 "'unsafe-eval'",
                 "https://www.gstatic.com",
-                "https://apis.google.com"
+                "https://apis.google.com",
+                "https://cdnjs.cloudflare.com"
+            ],
+            styleSrc: [
+                "'self'",
+                "'unsafe-inline'",
+                "https://cdnjs.cloudflare.com"
             ],
             frameSrc: [
                 "'self'",
-                "https://simple-memory-games.firebaseapp.com",
-                "https://simple-memory-games.web.app",
-                "https://accounts.google.com"
+                "https://*.firebaseapp.com",
+                "https://*.google.com"
             ],
             connectSrc: [
                 "'self'",
-                "https://simple-memory-games.firebaseapp.com",
-                "https://simple-memory-games.web.app",
+                "https://*.firebaseapp.com",
+                "https://*.googleapis.com",
                 "https://identitytoolkit.googleapis.com",
-                "https://*.googleapis.com"
+                "wss://*.firebaseio.com"
             ],
             imgSrc: ["'self'", "data:", "https:"],
-            styleSrc: ["'self'", "'unsafe-inline'"],
-            fontSrc: ["'self'", "data:", "https:"]
+            fontSrc: [
+                "'self'",
+                "data:",
+                "https://cdnjs.cloudflare.com"
+            ]
         }
     }
 }));
