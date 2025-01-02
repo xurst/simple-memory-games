@@ -13,9 +13,6 @@ yarn.lock
 .env.test.local
 .env.production.local
 
-# Firebase configuration
-src/js/services/firebase-config.js
-
 # IDE - WebStorm
 .idea/
 *.iml

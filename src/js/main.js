@@ -1,12 +1,10 @@
 // src/js/main.js
 import { SequenceGame } from './games/core/sequence.js';
 import { SidebarManager } from './ui/components/sidebar.js';
-import { AuthManager } from './services/auth.js';
 import { RecordsSettingsManager } from './ui/views/records_settings.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     new SidebarManager();
-    new AuthManager();
 
     if (document.querySelector('.game-logs-container')) {
         new RecordsSettingsManager();
