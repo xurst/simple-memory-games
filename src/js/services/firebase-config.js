@@ -1,4 +1,4 @@
-// firebase-config.js
+// src/js/services/firebase-config.js
 const firebaseConfig = {
     apiKey: process.env.FIREBASE_API_KEY,
     authDomain: process.env.FIREBASE_AUTH_DOMAIN,
@@ -8,8 +8,8 @@ const firebaseConfig = {
     appId: process.env.FIREBASE_APP_ID,
     measurementId: process.env.FIREBASE_MEASUREMENT_ID,
     authenticationMethods: {
-        popup: process.env.FIREBASE_AUTH_METHOD_POPUP === 'true',
-        redirect: process.env.FIREBASE_AUTH_METHOD_REDIRECT === 'true',
+        popup: true,
+        redirect: true
     }
 };
 
