@@ -22,7 +22,7 @@ some simple memory games u can play :D (they aren't simple)
 - score tracking and personal bests
 - adjustable difficulty settings
 
-## tech used
+## tech used (prob outdated)
 - javascript
 - firebase auth
 - express.js server
@@ -32,10 +32,10 @@ some simple memory games u can play :D (they aren't simple)
 
 ### url: https://simple-memory-games-d1097398d753.herokuapp.com
 
-## preview
+## preview (outdated)
 ![gameplay preview](https://media.discordapp.net/attachments/1204435079741448275/1322809838182600715/image.png?ex=67723a2a&is=6770e8aa&hm=c4eb7bb26cb0a8907e1b79bb1aee62ab90c86987d76cf917662a8229bcb20bcb&=&format=webp&quality=lossless)
 
-## complete setup guide
+## complete setup guide (prob outdated)
 
 ### 1. local setup
 ```bash
@@ -104,7 +104,7 @@ npm start
 open http://localhost:3000
 ```
 
-## current features
+## current features (prob outdated)
 - google authentication
 - game logs
 - custom game settings
@@ -127,4 +127,4 @@ open http://localhost:3000
 ## license
 this project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-more games coming soon
+more games coming soon.

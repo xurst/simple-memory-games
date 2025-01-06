@@ -43,6 +43,13 @@ export class GameEvents {
             this.state.sequence = [];
             this.game.startButton.textContent = 'start game';
             this.game.startButton.disabled = false;
+            this.game.modeButton.disabled = false;
+            this.game.settingsButton.disabled = false;
+            this.game.modeButton.classList.remove('disabled');
+            this.game.settingsButton.classList.remove('disabled');
+            document.querySelectorAll('.setting-group input').forEach(input => {
+                input.disabled = false;
+            });
             return;
         }
 

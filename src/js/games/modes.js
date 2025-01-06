@@ -52,7 +52,7 @@ const gameModes = {
         xurst: {
             name: 'xurst',
             highlightTimer: 100,
-            timerSelection: 450,
+            timerSelection: 600,
             speedOfSelection: 100,
             turnDelay: 100,
             repetitionEnabled: false,

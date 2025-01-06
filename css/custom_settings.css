@@ -72,7 +72,7 @@
 
 .settings-close {
     position: absolute;
-    top: 4px; right: 10px;
+    top: 5px; right: 10px;
     width: 32px; height: 32px;
     font-size: 26px;
     background: rgba(255,255,255,0.1);
