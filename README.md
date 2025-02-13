@@ -30,10 +30,10 @@ some simple memory games u can play :D (they aren't simple)
 
 ## try it out
 
-### url: https://simple-memory-games-d1097398d753.herokuapp.com
+### url: https://xurst.github.io/simple-memory-games/
 
 ## preview (outdated)
-![gameplay preview](https://media.discordapp.net/attachments/1204435079741448275/1322809838182600715/image.png?ex=67723a2a&is=6770e8aa&hm=c4eb7bb26cb0a8907e1b79bb1aee62ab90c86987d76cf917662a8229bcb20bcb&=&format=webp&quality=lossless)
+![gameplay preview](https://i.imgur.com/j7GyOMg.png)
 
 ## complete setup guide (prob outdated)
 
